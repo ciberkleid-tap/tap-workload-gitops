@@ -8,7 +8,6 @@ metadata:
     kapp.k14s.io/change-rule: upsert after upserting servicebinding.io/ServiceBindings
   labels:
     app.kubernetes.io/part-of: tanzu-java-web-app
-    apps.tanzu.vmware.com/auto-configure-actuators: "true"
     apps.tanzu.vmware.com/has-tests: "true"
     apps.tanzu.vmware.com/workload-type: web
     app.kubernetes.io/component: run
@@ -21,7 +20,6 @@ spec:
         apps.tanzu.vmware.com/live-update: "true"
         autoscaling.knative.dev/maxScale: "1"
         autoscaling.knative.dev/minScale: "1"
-        boot.spring.io/actuator: http://:8081/actuator
         boot.spring.io/version: 3.0.5
         conventions.carto.run/applied-conventions: |-
           appliveview-sample/app-live-view-appflavour-check
@@ -37,19 +35,19 @@ spec:
           spring-boot-convention/app-live-view-appflavour-check
           spring-boot-convention/app-live-view-connector-boot
           spring-boot-convention/app-live-view-appflavours-boot
-        developer.apps.tanzu.vmware.com/image-source-digest: gcr.io/fe-ciberkleid/tap-iterate/source:latest@sha256:5622315b31ce7e6e9b79df937bc7543ec4c9ae4ecea1520d0d8b51ec9ba305bd
+        developer.apps.tanzu.vmware.com/image-source-digest: gcr.io/fe-ciberkleid/tap-iterate/source:latest@sha256:a7ca57cdac6073f30a380b4569405dc904beb202ccc000f38d43719f5f6d0772
         developer.conventions/target-containers: workload
       labels:
         app.kubernetes.io/component: run
         app.kubernetes.io/part-of: tanzu-java-web-app
-        apps.tanzu.vmware.com/auto-configure-actuators: "true"
+        apps.tanzu.vmware.com/auto-configure-actuators: "false"
         apps.tanzu.vmware.com/has-tests: "true"
         apps.tanzu.vmware.com/workload-type: web
         carto.run/workload-name: tanzu-java-web-app
         conventions.carto.run/framework: spring-boot
         tanzu.app.live.view: "true"
         tanzu.app.live.view.application.actuator.path: actuator
-        tanzu.app.live.view.application.actuator.port: "8081"
+        tanzu.app.live.view.application.actuator.port: "8080"
         tanzu.app.live.view.application.flavours: spring-boot
         tanzu.app.live.view.application.name: tanzu-java-web-app
     spec:
@@ -60,8 +58,8 @@ spec:
         - name: BPL_DEBUG_PORT
           value: "9005"
         - name: JAVA_TOOL_OPTIONS
-          value: -Dmanagement.endpoint.health.probes.add-additional-paths="true" -Dmanagement.endpoint.health.show-details="always" -Dmanagement.endpoints.web.base-path="/actuator" -Dmanagement.endpoints.web.exposure.include="*" -Dmanagement.health.probes.enabled="true" -Dmanagement.server.port="8081" -Dserver.port="8080" -Dserver.shutdown.grace-period="24s"
-        image: gcr.io/fe-ciberkleid/tap-demo/workloads/tanzu-java-web-app-dev@sha256:0a6a302fcd44a710fccaa46c8eb44638dee0abf8175fc1b8ad6634f706a93428
+          value: -Dmanagement.endpoint.health.probes.add-additional-paths="true" -Dmanagement.health.probes.enabled="true" -Dserver.port="8080" -Dserver.shutdown.grace-period="24s"
+        image: gcr.io/fe-ciberkleid/tap-demo/workloads/tanzu-java-web-app-dev@sha256:fb44919cd656bd57f95c8530ad4ce79dc80a5b9be2db7b5efde344fd35cc76ea
         livenessProbe:
           httpGet:
             path: /livez
